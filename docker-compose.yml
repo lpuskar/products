@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+
+
+  api:
+    container_name: products_api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - API_URL=http://0.0.0.0:8000
+    depends_on:
+      db:
+        condition: service_started
+      clickhouse:
+        condition: service_started
+    env_file:
+      - .env
+    volumes:
+      - ./logs:/app/logs
+      - ./logs/cron_logs:/var/log
+    restart: always
+    ports:
+      - 8000:8000
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload --log-config log_config.json
+  db:
+    image: postgres
+    volumes:
+      - ./db/postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    ports:
+      - 5432:5432
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1'
+
+  clickhouse:
+      image: yandex/clickhouse-server
+      ports:
+        - "8123:8123"
+        - "9000:9000"
+      volumes:
+        - ./db/clickhouse_data:/var/lib/clickhouse
+      restart: always
+      deploy:
+        resources:
+          limits:
+            memory: 2G
+            cpus: '1'

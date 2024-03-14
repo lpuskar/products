@@ -1,0 +1,2 @@
+* * * * * /usr/local/bin/python /app/generate_random_orders.py 2>&1 | awk '{print strftime("\%Y-\%m-\%d \%H:\%M:\%S"), $0; fflush();}' >> /var/log/cron.log
+*/3 * * * * cd /app && /usr/local/bin/python /app/replicate_and_transform_data.py 2>&1 | awk '{print strftime("\%Y-\%m-\%d \%H:\%M:\%S"), $0; fflush();}' >> /var/log/cron.log

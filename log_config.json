@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "disable_existing_loggers": false,
+  "filters": {
+    "correlation_id": {
+      "()": "asgi_correlation_id.CorrelationIdFilter",
+      "uuid_length": 16,
+      "default_value": "-"
+    }
+  },
+  "formatters": {
+    "logfileformatter": {
+      "format": "[%(asctime)s.%(msecs)03d] %(levelname)s [%(correlation_id)s] [%(thread)d] [%(filename)s:%(lineno)d] - %(message)s",
+      "datefmt": "%Y-%m-%d %H:%M:%S"
+    }
+  },
+  "handlers": {
+    "logfile": {
+      "class": "logging.handlers.RotatingFileHandler",
+      "level": "DEBUG",
+      "formatter": "logfileformatter",
+      "filename": "logs/logfile.log",
+      "mode": "a",
+      "filters": ["correlation_id"]
+    }
+  },
+  "loggers": {
+    "": {
+      "handlers": ["logfile"],
+      "level": "DEBUG"
+    }
+  }
+}
