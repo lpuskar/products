@@ -24,23 +24,30 @@ The data transfer from Postgres to Clickhouse occurs every 3 minutes, facilitate
 
 1. Clone this repository to your local machine.
 
-2. Navigate to the repository directory in your terminal.
+2. Add database passwords to the .env file
 
-3. Build the Docker containers using the following command:
+```
+POSTGRES_USERNAME = 'postgres'
+POSTGRES_PASSWORD = 'postgres'
+```
+
+4. Navigate to the repository directory in your terminal.
+
+5. Build the Docker containers using the following command:
 
     ```bash
     docker-compose build
     ```
 
-4. Start the Docker containers:
+6. Start the Docker containers:
 
     ```bash
     docker-compose up
     ```
 
-5. The API can be accessed at `http://localhost:8000/`. Use the `generate_order` endpoint to manually generate orders.
+7. The API can be accessed at `http://localhost:8000/`. Use the `generate_order` endpoint to manually generate orders.
 
-6. Logs can be found under `logs/cron_logs/cron.log`.
+8. Logs can be found under `logs/cron_logs/cron.log`.
 
 
 ## Logs
