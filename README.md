@@ -24,11 +24,14 @@ The data transfer from Postgres to Clickhouse occurs every 3 minutes, facilitate
 
 1. Clone this repository to your local machine.
 
-2. Add database passwords to the .env file
+2. Create a .env file with the following values for testing purposes:
 
 ```
+POSTGRES_HOST = 'db'
 POSTGRES_USERNAME = 'postgres'
 POSTGRES_PASSWORD = 'postgres'
+POSTGRES_DB = 'products'
+
 ```
 
 4. Navigate to the repository directory in your terminal.
