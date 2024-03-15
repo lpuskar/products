@@ -48,7 +48,7 @@ POSTGRES_DB = 'products'
     docker-compose up
     ```
 
-7. The API can be accessed at `http://localhost:8000/`. Use the `generate_order` endpoint to manually generate orders.
+7. The API can be accessed at `http://localhost:8000/docs#/`. Use the `generate_order` endpoint to manually generate orders.
 
 8. Logs can be found under `logs/cron_logs/cron.log`.
 
@@ -73,5 +73,5 @@ For deploying this solution in a production environment, I would make the follow
 
 - Utilize Airbyte for data transfer between Postgres and Clickhouse to ensure scalability and reliability.
 - Use dbt for data transformation to efficiently manage the data modeling process and ensure data quality.
-- Currently a problem might occur, when the database build hasn't finished before the api is setup. This can be regulated in the docker-compose file.
+- A problem might occur, when the database build hasn't finished before the api is setup. Currently I have solved it by making the main service wait 60 seconds. This should be solved better, either in the docker-compose file with dependency conditions or by using netcat to check if the database connection is up and running.
 - Currently the setup for Clickhouse table doesn't include an automatically generated UUID as the id of the table and a default id is assigned to all the entries. In a production environment, an ID generator should be added.
